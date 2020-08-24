@@ -16,4 +16,4 @@ class HumanAgent(Agent):
         # i.e: LEFT,RIGHT,UP,DOWN
         direction = input()
         assert direction in MOVES
-        return MOVES.index(direction)
+        return MOVES_INV[direction]
