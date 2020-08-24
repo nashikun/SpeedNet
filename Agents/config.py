@@ -1,0 +1,1 @@
+MOVES=["LEFT", "RIGHT", "UP", "DOWN"]
