@@ -6,7 +6,7 @@ class RandomAgent(Agent):
         if name:
             self.name = name
         else:
-            self.name = "Random Player {}".format(id(self))
+            self.name = "Random player {}".format(id(self))
         super(RandomAgent, self).__init__(**kwargs)
 
     def choose_move(self, grid):
