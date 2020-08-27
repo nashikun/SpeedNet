@@ -7,7 +7,7 @@ class HumanAgent(Agent):
         if name:
             self.name = name
         else:
-            self.name = "Human player {}".format(id(self))
+            self.name = "Human Player {}".format(id(self))
 
         super(HumanAgent, self).__init__(**kwargs)
 

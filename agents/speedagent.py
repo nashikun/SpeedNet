@@ -7,7 +7,7 @@ class SpeedAgent(Agent):
         if name:
             self.name = name
         else:
-            self.name = "SpeedNet player {}".format(id(self))
+            self.name = "SpeedNet Player {}".format(id(self))
 
         super(SpeedAgent, self).__init__(**kwargs)
 
