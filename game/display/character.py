@@ -1,4 +1,4 @@
-from .GameObject import GameObject
+from .game_object import GameObject
 
 
 class Character(GameObject):
