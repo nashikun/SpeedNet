@@ -24,12 +24,13 @@ def init_parser():
     manual_parser = subparsers.add_parser('manual', help='Enters the options manually')
     manual_parser.add_argument("--level_type", type=str, default="CellularAutomataLevel")
     manual_parser.add_argument("--level_path", type=str, default=None)
-    manual_parser.add_argument("--level_width", type=int, default=100)
-    manual_parser.add_argument("--level_height", type=int, default=100)
-    manual_parser.add_argument("--screen_height", type=int, default=100)
-    manual_parser.add_argument("--screen_width", type=int, default=100)
+    manual_parser.add_argument("--level_width", type=int, default=20)
+    manual_parser.add_argument("--level_height", type=int, default=20)
+    manual_parser.add_argument("--screen_height", type=int, default=20)
+    manual_parser.add_argument("--screen_width", type=int, default=20)
     manual_parser.add_argument("--ticks", type=int, default=1)
     manual_parser.add_argument("--max_turns", type=int, default=None)
+    manual_parser.add_argument("--fps", type=int, default=60)
     manual_parser.add_argument("--render", type=str2bool, nargs='?', default=True)
     return parser
 
@@ -43,11 +44,11 @@ if __name__ == "__main__":
     else:
         config = vars(args)
 
-    game_config = {"level_type": config["level_type"], "render": config["render"], "ticks": config["ticks"],
-                   "max_turns": config["max_turns"]}
-    screen_config = {"screen_height": config["screen_height"], "screen_width": config["screen_width"]}
-    level_config = {"level_height": config["level_height"], "level_width": config["level_width"],
-                    "level_path": config["level_path"]}
+    game_config = {"render": config["render"], "ticks": config["ticks"], "max_turns": config["max_turns"]}
+    screen_config = {"screen_height": config["screen_height"], "screen_width": config["screen_width"],
+                     "fps": config["fps"]}
+    level_config = {"level_type": config["level_type"], "level_height": config["level_height"],
+                    "level_width": config["level_width"], "level_path": config["level_path"]}
     model_config = {}
     game = Game(**game_config)
     game.init_screen(**screen_config)

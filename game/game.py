@@ -16,11 +16,13 @@ class Game:
         self.max_turns = max_turns
         self.turn = 0
         self.screen = None
+        self.exit = False
 
-    def init_screen(self, screen_height, screen_width):
-        self.screen = Screen(screen_height, screen_width)
+    def init_screen(self, screen_height, screen_width, fps):
+        self.screen = Screen(screen_height, screen_width, fps)
 
-    def init_level(self, level_height=100, level_width=100, level_path=None):
+    def init_level(self, level_type="CellularAutomataLevel", level_height=100, level_width=100, level_path=None):
+        self.level = getattr(importlib.import_module("game.levels"), level_type)()
         self.level.init_map(level_height=level_height, level_width=level_width, level_path=level_path)
 
     def init_player(self):
