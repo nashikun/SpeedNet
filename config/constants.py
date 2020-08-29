@@ -1,4 +1,4 @@
-from enum import Enum, IntEnum, EnumMeta, auto
+from enum import IntEnum, EnumMeta, auto
 
 
 class ConstantsEnumMeta(EnumMeta):
@@ -13,7 +13,7 @@ class MOVES(IntEnum, metaclass=ConstantsEnumMeta):
     DOWN = auto()
 
 
-class CELL(Enum):
+class CELL(IntEnum):
     EMPTY = auto()
     WALL = auto()
     UNKNOWN = auto()
