@@ -16,4 +16,5 @@ class MOVES(IntEnum, metaclass=ConstantsEnumMeta):
 class CELL(Enum):
     EMPTY = auto()
     WALL = auto()
+    UNKNOWN = auto()
     PLAYER = auto()

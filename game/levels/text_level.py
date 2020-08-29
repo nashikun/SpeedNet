@@ -1,4 +1,5 @@
 from .level import Level
+from config.constants import CELL
 
 import os
 
@@ -22,4 +23,4 @@ class TextLevel(Level):
 
         self.height = h
         self.width = w
-        self.level_map = level_map
+        self.level_map = [[CELL.WALL.value if x else CELL.EMPTY.value for x in row] for row in level_map]
