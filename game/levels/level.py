@@ -4,8 +4,6 @@ from config.constants import CELL, COLORS
 from game.display.game_object import Sprite
 from ..display.game_object import GameObject
 
-LIGHTGREY = (100, 100, 100)
-
 
 class Level(GameObject):
     priority = 0
