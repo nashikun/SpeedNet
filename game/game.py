@@ -1,9 +1,12 @@
 import importlib
 import time
 from queue import Queue
+from random import choice
 
 import pygame as pg
+import numpy as np
 
+from config.constants import CELL
 from game.display.screen import Screen
 from game.player.player import Player
 
@@ -27,7 +30,8 @@ class Game:
         self.level.init_map(level_height=level_height, level_width=level_width, level_path=level_path)
 
     def init_player(self):
-        self.objects.put(Player())
+        x, y = choice(np.argwhere(self.level.level_map == CELL.EMPTY.value))
+        self.objects.put(Player(self.screen, x, y))
 
     def run(self):
         last_action = time.time()

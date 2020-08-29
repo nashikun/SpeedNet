@@ -49,4 +49,4 @@ class CellularAutomataLevel(Level):
         color_counts = Counter(level_map.flatten())
         max_count = max(color_counts.items(), key=lambda x: x[1] if x[0] != 1 else -1)[0]
         level_map = level_map != max_count
-        self.level_map = [[CELL.WALL.value if x else CELL.EMPTY.value for x in row] for row in level_map]
+        self.level_map = np.array([[CELL.WALL.value if x else CELL.EMPTY.value for x in row] for row in level_map])

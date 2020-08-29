@@ -1,12 +1,21 @@
+from config.constants import COLORS, CELLSIZE
+from game.display.game_object import GameObject
 from .game_object import Sprite
 
 import pygame as pg
 
 
-class Character(Sprite):
+class Character(Sprite, GameObject):
     priority = 2
 
-    def __init__(self, player, color):
+    def __init__(self, player, screen):
         self.player = player
+        self.screen = screen
         self.group = pg.sprite.Group()
-        super().__init__(color, self.group)
+        GameObject.__init__(self)
+        Sprite.__init__(self, self.group, COLORS.RED.value, player.x, player.y)
+
+    def render(self):
+        self.rect.x = self.x * CELLSIZE
+        self.rect.y = self.y * CELLSIZE
+        self.group.draw(self.screen.screen)

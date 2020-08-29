@@ -1,6 +1,6 @@
 import pygame as pg
 
-from config.constants import CELL, CELLSIZE, COLORS
+from config.constants import CELL, COLORS
 from game.display.game_object import Sprite
 from ..display.game_object import GameObject
 

@@ -37,5 +37,4 @@ class Sprite(pg.sprite.Sprite):
         self.rect.y = self.y * CELLSIZE
 
     def render(self):
-        self.rect.x = self.x * CELLSIZE
-        self.rect.y = self.y * CELLSIZE
+        pass

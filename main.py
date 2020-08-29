@@ -53,4 +53,5 @@ if __name__ == "__main__":
     game = Game(**game_config)
     game.init_screen(**screen_config)
     game.init_level(**level_config)
+    game.init_player()
     game.run()
