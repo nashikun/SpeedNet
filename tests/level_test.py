@@ -1,3 +1,4 @@
+from config.constants import CELL
 from game.levels.text_level import TextLevel
 
 from unittest import TestCase
@@ -13,7 +14,10 @@ class TestLevel(TestCase):
         self.assertEqual(m.width, 11)
         view = m.get_view(1, 1)
         self.assertEqual(len(view), 3)
-        self.assertEqual(view, [["2", "1", "2"], ["1", "3", "0"], ["2", "0", "2"]])
+        self.assertEqual(view,
+                         [[CELL.UNKNOWN.value, CELL.WALL.value, CELL.UNKNOWN.value],
+                          [CELL.WALL.value, CELL.PLAYER.value, CELL.EMPTY.value],
+                          [CELL.UNKNOWN.value, CELL.EMPTY.value, CELL.UNKNOWN.value]])
 
     def test_get_view_2(self):
         m = TextLevel(2)
@@ -22,4 +26,15 @@ class TestLevel(TestCase):
         self.assertEqual(m.width, 11)
         view = m.get_view(3, 4)
         self.assertEqual(len(view), 5)
-        self.assertEqual(view, [["2", "2", "0", "2", "2"], ["2", "0", "0", "1", "2"], ["0", "0", "3", "0", "0"], ["2", "1", "1", "1", "2"], ["2", "2", "2", "2", "2"]])
+        self.assertEqual(view, [
+            [CELL.UNKNOWN.value, CELL.UNKNOWN.value, CELL.EMPTY.value, CELL.UNKNOWN.value, CELL.UNKNOWN.value],
+            [CELL.UNKNOWN.value, CELL.EMPTY.value, CELL.EMPTY.value, CELL.WALL.value, CELL.UNKNOWN.value],
+            [CELL.EMPTY.value, CELL.EMPTY.value, CELL.PLAYER.value, CELL.EMPTY.value, CELL.EMPTY.value],
+            [CELL.UNKNOWN.value, CELL.WALL.value, CELL.WALL.value, CELL.WALL.value, CELL.UNKNOWN.value],
+            [CELL.UNKNOWN.value, CELL.UNKNOWN.value, CELL.UNKNOWN.value, CELL.UNKNOWN.value, CELL.UNKNOWN.value]])
+
+    def test_str(self):
+        m = TextLevel(CELL.UNKNOWN.value)
+        m.read_file(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
+        self.assertEqual(str(m),
+                         "22222222222\n21111111112\n21111111112\n21111111112\n21111111112\n21111111112\n22222222222")

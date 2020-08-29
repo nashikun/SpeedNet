@@ -1,4 +1,5 @@
 from ..display.game_object import GameObject
+from config.constants import CELL
 
 from math import floor, sqrt
 
@@ -44,7 +45,7 @@ class Level(GameObject):
         self._width = w
 
     def get_view(self, xp, yp):
-        view = [["2" for _ in range(2 * self.range + 1)] for _ in range(2 * self.range + 1)]
+        view = [[CELL.UNKNOWN.value for _ in range(2 * self.range + 1)] for _ in range(2 * self.range + 1)]
         for x, y in self.directions:
             for step in range(1, self.range + 1):
 
@@ -60,8 +61,11 @@ class Level(GameObject):
                 view[self.range + yc - yp][self.range + xc - xp] = self.level_map[yc][xc]
 
                 # If the view is blocked by a wall, stop
-                if self.level_map[yc][xc] == "1":
+                if self.level_map[yc][xc] == CELL.WALL:
                     break
 
-        view[self.range][self.range] = "3"
+        view[self.range][self.range] = CELL.PLAYER.value
         return view
+
+    def __str__(self):
+        return "\n".join(["".join(map(str, x)) for x in self.level_map])
