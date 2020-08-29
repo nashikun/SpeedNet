@@ -20,6 +20,5 @@ if __name__ == "__main__":
     with open(args.config_path, 'r') as f:
         config = json.load(f)
     game = Game(**config["game_config"])
-    print(config)
     game.setup(**config)
     game.run()

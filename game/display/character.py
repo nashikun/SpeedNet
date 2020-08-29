@@ -16,6 +16,6 @@ class Character(Sprite, GameObject):
         Sprite.__init__(self, self.group, COLORS.RED.value, player.x, player.y)
 
     def render(self):
-        self.rect.x = self.x * CELLSIZE
-        self.rect.y = self.y * CELLSIZE
+        self.rect.x = self.player.x * CELLSIZE
+        self.rect.y = self.player.y * CELLSIZE
         self.group.draw(self.screen.screen)

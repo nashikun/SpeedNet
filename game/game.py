@@ -22,6 +22,7 @@ class Game:
         self.turn = 0
         self.screen = None
         self.exit = False
+        self.get_events = True
 
     def setup(self, screen_config, level_config, player_config, agent_config, **kwargs):
         self.init_screen(**screen_config)
@@ -42,10 +43,13 @@ class Game:
         else:
             x = start_x
             y = start_y
-        self.player = Player(self.screen, vision_range, x, y)
+        self.player = Player(self, vision_range, x, y)
         self.objects.put(self.player)
 
     def init_agent(self, agent_type):
+        # In this case all events are taken by the agent instead
+        if agent_type == "HumanAgent":
+            self.get_events = False
         agent = getattr(importlib.import_module("agents"), agent_type)()
         self.player.agent = agent
 
@@ -59,11 +63,11 @@ class Game:
                     for obj in list(self.objects.queue):
                         obj.run()
             if self.render:
-                for event in pg.event.get():
-                    if event.type == pg.QUIT:
-                        pg.quit()
-                        self.quit()
-                        break
+                if self.get_events:
+                    for event in pg.event.get():
+                        if event.type == pg.QUIT:
+                            self.quit()
+                            break
                 if time.time() - last_render > 1 / self.screen.fps:
                     self.screen.render()
             self.turn += 1

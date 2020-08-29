@@ -1,6 +1,7 @@
 from enum import IntEnum, EnumMeta, auto, Enum
 
 CELLSIZE = 32
+QUIT = -1
 
 
 class ConstantsEnumMeta(EnumMeta):

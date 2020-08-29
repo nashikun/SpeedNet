@@ -28,6 +28,7 @@ class Screen(metaclass=Singleton):
         self.screen.fill(COLORS.WHITE.value)
         for game_object in list(self.game_objects.queue):
             game_object.item.render()
+        pg.display.flip()
         pg.display.update()
 
     def quit(self):

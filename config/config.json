@@ -1,6 +1,6 @@
 {
   "game_config": {
-      "ticks": 1,
+      "ticks": 10,
       "max_turns": null,
       "render": true
   },
