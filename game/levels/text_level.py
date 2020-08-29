@@ -1,7 +1,7 @@
-from .level import Level
-from config.constants import CELL
-
 import os
+
+from config.constants import CELL
+from .level import Level
 
 
 class TextLevel(Level):

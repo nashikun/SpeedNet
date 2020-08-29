@@ -1,9 +1,12 @@
-from .game_object import GameObject
+from .game_object import Sprite
+
+import pygame as pg
 
 
-class Character(GameObject):
+class Character(Sprite):
     priority = 2
 
-    def __init__(self, player):
+    def __init__(self, player, color):
         self.player = player
-        super().__init__()
+        self.group = pg.sprite.Group()
+        super().__init__(color, self.group)

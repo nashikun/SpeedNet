@@ -1,11 +1,12 @@
-from .level import Level
-from config.constants import CELL
-
 from collections import Counter
 from queue import Queue
 from random import random
+
 import numpy as np
 from scipy.signal import convolve2d
+
+from config.constants import CELL
+from .level import Level
 
 
 class CellularAutomataLevel(Level):

@@ -1,4 +1,4 @@
-from enum import IntEnum, EnumMeta, auto
+from enum import IntEnum, EnumMeta, auto, Enum
 
 CELLSIZE = 32
 
@@ -20,3 +20,12 @@ class CELL(IntEnum):
     WALL = auto()
     UNKNOWN = auto()
     PLAYER = auto()
+
+
+class COLORS(Enum):
+    BLACK = (0, 0, 0)
+    GREEN = (0, 255, 0)
+    RED = (255, 0, 0)
+    BLUE = (0, 0, 255)
+    MEDIUM_GRAY = (128, 128, 128)
+    WHITE = (255, 255, 255)

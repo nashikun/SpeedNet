@@ -1,5 +1,5 @@
-from .agent import Agent
 from config.constants import MOVES
+from .agent import Agent
 
 
 class HumanAgent(Agent):

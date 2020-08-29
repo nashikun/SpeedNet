@@ -1,7 +1,8 @@
-from ..display.game_object import GameObject
-from config.constants import CELL, CELLSIZE
-
 import pygame as pg
+
+from config.constants import CELL, CELLSIZE, COLORS
+from game.display.game_object import Sprite
+from ..display.game_object import GameObject
 
 LIGHTGREY = (100, 100, 100)
 
@@ -71,7 +72,9 @@ class Level(GameObject):
         return "\n".join(["".join(map(str, x)) for x in self.level_map])
 
     def render(self):
-        for x in range(0, self.width):
-            pg.draw.line(self.screen.screen, LIGHTGREY, (x * CELLSIZE, 0), (x * CELLSIZE, self.height * CELLSIZE))
-        for y in range(0, self.height):
-            pg.draw.line(self.screen.screen, LIGHTGREY, (0, y * CELLSIZE), (self.width * CELLSIZE, y * CELLSIZE))
+        level_sprites = pg.sprite.Group()
+        for x in range(self.width):
+            for y in range(self.height):
+                if self.level_map[x][y] == CELL.WALL:
+                    Sprite(level_sprites, COLORS.BLACK.value, x, y)
+        level_sprites.draw(self.screen.screen)

@@ -1,6 +1,8 @@
 from queue import PriorityQueue
+
 import pygame as pg
-from config.constants import CELLSIZE
+
+from config.constants import CELLSIZE, COLORS
 
 
 class Singleton(type):
@@ -23,7 +25,7 @@ class Screen(metaclass=Singleton):
         self.screen = pg.display.set_mode((width * CELLSIZE, height * CELLSIZE))
 
     def render(self):
-        self.screen.fill((40, 40, 40))
+        self.screen.fill(COLORS.WHITE.value)
         for game_object in list(self.game_objects.queue):
             game_object.item.render()
         pg.display.update()
