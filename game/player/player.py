@@ -4,13 +4,14 @@ from game.display.character import Character
 
 
 class Player:
-    def __init__(self, screen, x, y):
+    def __init__(self, screen, vision_range, x, y):
         self.x = x
         self.y = y
         self.range = None
+        self.agent = None
         self.directions = set()
         self.display = Character(self, screen)
-        self.update_range(2)
+        self.update_range(vision_range)
 
     def update_range(self, r):
         # Contains the tiles at a distance "range" around 0

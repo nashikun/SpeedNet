@@ -14,6 +14,7 @@ from game.player.player import Player
 class Game:
     def __init__(self, ticks=None, render=True, max_turns=None):
         self.level = None
+        self.player = None
         self.objects = Queue()
         self.ticks = ticks
         self.render = render
@@ -22,16 +23,31 @@ class Game:
         self.screen = None
         self.exit = False
 
+    def setup(self, screen_config, level_config, player_config, agent_config, **kwargs):
+        self.init_screen(**screen_config)
+        self.init_level(**level_config)
+        self.init_player(**player_config)
+        self.init_agent(**agent_config)
+
     def init_screen(self, screen_height, screen_width, fps):
         self.screen = Screen(screen_height, screen_width, fps)
 
-    def init_level(self, level_type="CellularAutomataLevel", level_height=100, level_width=100, level_path=None):
+    def init_level(self, level_type, level_height, level_width, level_path):
         self.level = getattr(importlib.import_module("game.levels"), level_type)()
         self.level.init_map(level_height=level_height, level_width=level_width, level_path=level_path)
 
-    def init_player(self):
-        x, y = choice(np.argwhere(self.level.level_map == CELL.EMPTY.value))
-        self.objects.put(Player(self.screen, x, y))
+    def init_player(self, vision_range, start_x, start_y):
+        if start_x is None or start_y is None:
+            x, y = choice(np.argwhere(self.level.level_map == CELL.EMPTY.value))
+        else:
+            x = start_x
+            y = start_y
+        self.player = Player(self.screen, vision_range, x, y)
+        self.objects.put(self.player)
+
+    def init_agent(self, agent_type):
+        agent = getattr(importlib.import_module("agents"), agent_type)()
+        self.player.agent = agent
 
     def run(self):
         last_action = time.time()
