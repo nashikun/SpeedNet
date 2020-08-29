@@ -6,7 +6,7 @@ import os
 
 class TextLevel(Level):
 
-    def read_file(self, path):
+    def init_map(self, path):
         if not os.path.isfile(path):
             raise Exception(f"File {path} not found")
         with open(path, 'r') as f:
