@@ -25,4 +25,7 @@ class TestLevel(TestCase):
         self.assertEqual(view, [[2, 2, 0, 2, 2], [2, 0, 0, 1, 2], [0, 0, 3, 0, 0], [2, 1, 1, 1, 2], [2, 2, 2, 2, 2]])
 
     def test_str(self):
-        pass
+        m = TextLevel(2)
+        m.read_file(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
+        self.assertEqual(str(m),
+                         "11111111111\n10000000001\n10000000001\n10000000001\n10000000001\n10000000001\n11111111111")
