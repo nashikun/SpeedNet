@@ -26,7 +26,7 @@ class CellularAutomataLevel(Level):
     def init_map(self, level_height, level_width, **kwargs):
         self.height = level_height
         self.width = level_width
-        level_map = np.array([[int(random() < 0.35) for _ in range(h)] for _ in range(w)])
+        level_map = np.array([[int(random() < 0.35) for _ in range(self.height)] for _ in range(self.width)])
 
         for _ in range(4):
             r1 = convolve2d(level_map, np.ones((3, 3)), "same", fillvalue=1)

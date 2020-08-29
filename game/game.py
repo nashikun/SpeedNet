@@ -33,7 +33,7 @@ class Game:
                 if time.time() - t < 1 / self.ticks:
                     continue
             t = time.time()
-            for obj in self.objects:
+            for obj in list(self.objects.queue):
                 obj.run()
             if self.ticks and self.render:
                 self.screen.render()

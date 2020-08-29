@@ -18,5 +18,5 @@ class Screen(metaclass=Singleton):
         self.width = width
 
     def render(self):
-        for game_object in self.game_objects:
+        for game_object in list(self.game_objects.queue):
             game_object.item.render()

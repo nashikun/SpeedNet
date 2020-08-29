@@ -6,5 +6,6 @@
   "screen_height": 100,
   "screen_width": 100,
   "ticks": 1,
-  "max_turns": null
+  "max_turns": null,
+  "render": true
 }

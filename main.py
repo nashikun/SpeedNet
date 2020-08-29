@@ -3,6 +3,17 @@ import json
 from game.game import Game
 
 
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
+
 def init_parser():
     parser = argparse.ArgumentParser(description='Runs the project')
     subparsers = parser.add_subparsers(help='sub-command help', dest='command')
@@ -19,6 +30,7 @@ def init_parser():
     manual_parser.add_argument("--screen_width", type=int, default=100)
     manual_parser.add_argument("--ticks", type=int, default=1)
     manual_parser.add_argument("--max_turns", type=int, default=None)
+    manual_parser.add_argument("--render", type=str2bool, nargs='?', default=True)
     return parser
 
 
