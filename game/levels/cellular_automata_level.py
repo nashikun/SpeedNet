@@ -23,9 +23,9 @@ class CellularAutomataLevel(Level):
                     level_map[a][b] = color
                     q.put((a, b))
 
-    def init_map(self, h, w):
-        self.height = h
-        self.width = w
+    def init_map(self, level_height, level_width, **kwargs):
+        self.height = level_height
+        self.width = level_width
         level_map = np.array([[int(random() < 0.35) for _ in range(h)] for _ in range(w)])
 
         for _ in range(4):

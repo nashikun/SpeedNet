@@ -6,14 +6,14 @@ import os
 
 class TextLevel(Level):
 
-    def init_map(self, path):
-        if not os.path.isfile(path):
-            raise Exception(f"File {path} not found")
-        with open(path, 'r') as f:
+    def init_map(self, level_path, **kwargs):
+        if not os.path.isfile(level_path):
+            raise Exception(f"File {level_path} not found")
+        with open(level_path, 'r') as f:
             level_map = [list(map(int, x)) for x in f.read().splitlines()]
         h = len(level_map)
         if not h:
-            raise Exception(f"Map file {path} is empty")
+            raise Exception(f"Map file {level_path} is empty")
         w = len(level_map[0])
         for row in level_map:
             if len(row) != w:
