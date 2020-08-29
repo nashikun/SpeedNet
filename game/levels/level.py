@@ -65,3 +65,6 @@ class Level(GameObject):
 
         view[self.range][self.range] = "3"
         return view
+
+    def __str__(self):
+        return "\n".join(["".join(x) for x in self.level_map])
