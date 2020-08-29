@@ -9,7 +9,7 @@ class TextLevel(Level):
         if not os.path.isfile(path):
             raise Exception(f"File {path} not found")
         with open(path, 'r') as f:
-            level_map = [list(x) for x in f.read().splitlines()]
+            level_map = [list(map(int, x)) for x in f.read().splitlines()]
         h = len(level_map)
         if not h:
             raise Exception(f"Map file {path} is empty")
