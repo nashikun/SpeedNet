@@ -1,15 +1,16 @@
 import importlib
+import time
 from queue import Queue
 
-from game.display.screen import Screen
-import time
+import pygame as pg
 
+from game.display.screen import Screen
 from game.player.player import Player
 
 
 class Game:
-    def __init__(self, level_type="CellularAutomataLevel", ticks=None, render=True, max_turns=None):
-        self.level = getattr(importlib.import_module("game.levels"), level_type)()
+    def __init__(self, ticks=None, render=True, max_turns=None):
+        self.level = None
         self.objects = Queue()
         self.ticks = ticks
         self.render = render
@@ -29,17 +30,28 @@ class Game:
         self.objects.put(Player())
 
     def run(self):
-        t = time.time()
+        last_action = time.time()
+        last_render = time.time()
         while not self.is_over():
             if self.ticks:
-                if time.time() - t < 1 / self.ticks:
-                    continue
-            t = time.time()
-            for obj in list(self.objects.queue):
-                obj.run()
-            if self.ticks and self.render:
-                self.screen.render()
+                if time.time() - last_action > 1 / self.ticks:
+                    last_action = time.time()
+                    for obj in list(self.objects.queue):
+                        obj.run()
+            if self.render:
+                for event in pg.event.get():
+                    if event.type == pg.QUIT:
+                        pg.quit()
+                        self.quit()
+                        break
+                if time.time() - last_render > 1 / self.screen.fps:
+                    self.screen.render()
             self.turn += 1
+        self.quit()
 
     def is_over(self):
-        return self.max_turns is not None and self.turn >= self.max_turns
+        return self.exit or (self.max_turns is not None and self.turn >= self.max_turns)
+
+    def quit(self):
+        self.screen.quit()
+        self.exit = True

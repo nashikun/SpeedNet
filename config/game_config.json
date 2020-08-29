@@ -1,11 +1,12 @@
 {
   "level_type": "CellularAutomataLevel",
   "level_path": null,
-  "level_width": 100,
-  "level_height": 100,
-  "screen_height": 100,
-  "screen_width": 100,
+  "level_width": 20,
+  "level_height": 20,
+  "screen_height": 20,
+  "screen_width": 20,
   "ticks": 1,
   "max_turns": null,
-  "render": true
+  "render": true,
+  "fps": 60
 }

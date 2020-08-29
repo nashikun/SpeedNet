@@ -1,5 +1,7 @@
 from math import floor, sqrt
 
+from game.display.character import Character
+
 
 class Player:
     def __init__(self):
@@ -7,7 +9,7 @@ class Player:
         self.y = None
         self.range = None
         self.directions = set()
-
+        self.display = Character(self)
         self.update_range(2)
 
     def update_range(self, r):

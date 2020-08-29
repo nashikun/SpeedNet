@@ -16,6 +16,7 @@ class GameObject:
     def __init__(self):
         self.prioritized_item = PrioritizedItem(self.priority, self)
         Screen.game_objects.put(self.prioritized_item)
+        self.screen = Screen()
 
     def render(self):
         pass

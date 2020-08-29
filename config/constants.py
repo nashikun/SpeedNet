@@ -1,5 +1,7 @@
 from enum import IntEnum, EnumMeta, auto
 
+CELLSIZE = 32
+
 
 class ConstantsEnumMeta(EnumMeta):
     def __contains__(cls, item):

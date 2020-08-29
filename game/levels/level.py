@@ -1,5 +1,9 @@
 from ..display.game_object import GameObject
-from config.constants import CELL
+from config.constants import CELL, CELLSIZE
+
+import pygame as pg
+
+LIGHTGREY = (100, 100, 100)
 
 
 class Level(GameObject):
@@ -65,3 +69,9 @@ class Level(GameObject):
 
     def __str__(self):
         return "\n".join(["".join(map(str, x)) for x in self.level_map])
+
+    def render(self):
+        for x in range(0, self.width):
+            pg.draw.line(self.screen.screen, LIGHTGREY, (x * CELLSIZE, 0), (x * CELLSIZE, self.height * CELLSIZE))
+        for y in range(0, self.height):
+            pg.draw.line(self.screen.screen, LIGHTGREY, (0, y * CELLSIZE), (self.width * CELLSIZE, y * CELLSIZE))
