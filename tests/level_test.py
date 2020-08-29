@@ -1,4 +1,6 @@
 from config.constants import CELL
+from game.display.screen import Screen
+from game.game import Game
 from game.levels.text_level import TextLevel
 from game.player.player import Player
 
@@ -9,12 +11,11 @@ import os
 class TestLevel(TestCase):
 
     def test_get_view_1(self):
+        g = Game()
+        s = Screen(1, 1, 60)
         m = TextLevel()
-        m.read_file(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
-        p = Player()
-        p.update_range(1)
-        p.x = 1
-        p.y = 1
+        m.init_map(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
+        p = Player(g, 1, 1, 1)
         self.assertEqual(m.height, 7)
         self.assertEqual(m.width, 11)
         view = m.get_view(p)
@@ -26,10 +27,9 @@ class TestLevel(TestCase):
 
     def test_get_view_2(self):
         m = TextLevel()
-        m.read_file(os.path.join(os.getcwd(), "game", "assets", "text_levels", "1"))
-        p = Player()
-        p.x = 3
-        p.y = 4
+        m.init_map(os.path.join(os.getcwd(), "game", "assets", "text_levels", "1"))
+        g = Game()
+        p = Player(g, 2, 3, 4)
         self.assertEqual(m.height, 6)
         self.assertEqual(m.width, 11)
         view = m.get_view(p)
@@ -43,6 +43,6 @@ class TestLevel(TestCase):
 
     def test_str(self):
         m = TextLevel()
-        m.read_file(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
+        m.init_map(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
         self.assertEqual(str(m),
                          "22222222222\n21111111112\n21111111112\n21111111112\n21111111112\n21111111112\n22222222222")
