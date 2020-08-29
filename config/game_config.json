@@ -1,0 +1,10 @@
+{
+  "level_type": "CellularAutomataLevel",
+  "level_path": null,
+  "level_width": 100,
+  "level_height": 100,
+  "screen_height": 100,
+  "screen_width": 100,
+  "ticks": 1,
+  "max_turns": null
+}
