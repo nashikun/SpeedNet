@@ -1,24 +1,18 @@
-from ..display.game_object import GameObject
-from config.constants import CELL
+import pygame as pg
 
-from math import floor, sqrt
+from config.constants import CELL, COLORS
+from game.display.game_object import Sprite
+from ..display.game_object import GameObject
 
 
 class Level(GameObject):
     priority = 0
 
-    def __init__(self, r):
+    def __init__(self):
         super().__init__()
         self.level_map = []
-        self.range = r
         self._height = None
         self._width = None
-
-        # Contains the tiles at a distance "range" around 0
-        self.directions = set()
-        for x in range(r + 1):
-            y = floor(sqrt(r * r - x * x))
-            self.directions.update([(x, y), (x, -y), (-x, y), (-x, -y), (y, x), (y, -x), (-y, x), (-y, -x)])
 
     @property
     def height(self):
@@ -44,28 +38,41 @@ class Level(GameObject):
             raise Exception("Height should be a positive integer")
         self._width = w
 
-    def get_view(self, xp, yp):
-        view = [[CELL.UNKNOWN.value for _ in range(2 * self.range + 1)] for _ in range(2 * self.range + 1)]
-        for x, y in self.directions:
-            for step in range(1, self.range + 1):
+    def get_view(self, character):
+        xp = character.x
+        yp = character.y
+        r = character.range
+        directions = character.directions
+
+        view = [[CELL.UNKNOWN.value for _ in range(2 * r + 1)] for _ in range(2 * r + 1)]
+        for x, y in directions:
+            for step in range(1, r + 1):
 
                 # The position of the cell in the real map
-                xc = xp + round(step * x / self.range)
-                yc = yp + round(step * y / self.range)
+                xc = xp + round(step * x / r)
+                yc = yp + round(step * y / r)
 
                 # Break if outside the map
                 if not (0 <= xc < self.width and 0 <= yc < self.height):
                     break
 
                 # Update the cell
-                view[self.range + yc - yp][self.range + xc - xp] = self.level_map[yc][xc]
+                view[r + yc - yp][r + xc - xp] = self.level_map[yc][xc]
 
                 # If the view is blocked by a wall, stop
                 if self.level_map[yc][xc] == CELL.WALL:
                     break
 
-        view[self.range][self.range] = CELL.PLAYER.value
+        view[r][r] = CELL.PLAYER.value
         return view
 
     def __str__(self):
         return "\n".join(["".join(map(str, x)) for x in self.level_map])
+
+    def render(self):
+        level_sprites = pg.sprite.Group()
+        for x in range(self.width):
+            for y in range(self.height):
+                if self.level_map[x][y] == CELL.WALL:
+                    Sprite(level_sprites, COLORS.BLACK.value, x, y)
+        level_sprites.draw(self.screen.screen)

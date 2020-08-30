@@ -1,11 +1,12 @@
-from .level import Level
-from config.constants import CELL
-
 from collections import Counter
 from queue import Queue
 from random import random
+
 import numpy as np
 from scipy.signal import convolve2d
+
+from config.constants import CELL
+from .level import Level
 
 
 class CellularAutomataLevel(Level):
@@ -23,10 +24,10 @@ class CellularAutomataLevel(Level):
                     level_map[a][b] = color
                     q.put((a, b))
 
-    def init_map(self, h, w):
-        self.height = h
-        self.width = w
-        level_map = np.array([[int(random() < 0.35) for _ in range(h)] for _ in range(w)])
+    def init_map(self, level_height, level_width, **kwargs):
+        self.height = level_height
+        self.width = level_width
+        level_map = np.array([[int(random() < 0.35) for _ in range(self.height)] for _ in range(self.width)])
 
         for _ in range(4):
             r1 = convolve2d(level_map, np.ones((3, 3)), "same", fillvalue=1)
@@ -48,4 +49,4 @@ class CellularAutomataLevel(Level):
         color_counts = Counter(level_map.flatten())
         max_count = max(color_counts.items(), key=lambda x: x[1] if x[0] != 1 else -1)[0]
         level_map = level_map != max_count
-        self.level_map = [[CELL.WALL.value if x else CELL.EMPTY.value for x in row] for row in level_map]
+        self.level_map = np.array([[CELL.WALL.value if x else CELL.EMPTY.value for x in row] for row in level_map])

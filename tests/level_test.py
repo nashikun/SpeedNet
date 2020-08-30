@@ -1,5 +1,8 @@
 from config.constants import CELL
+from game.display.screen import Screen
+from game.game import Game
 from game.levels.text_level import TextLevel
+from game.player.player import Player
 
 from unittest import TestCase
 import os
@@ -8,11 +11,13 @@ import os
 class TestLevel(TestCase):
 
     def test_get_view_1(self):
-        m = TextLevel(1)
-        m.read_file(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
+        g = Game()
+        m = TextLevel()
+        m.init_map(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
+        p = Player(g, 1, 1, 1)
         self.assertEqual(m.height, 7)
         self.assertEqual(m.width, 11)
-        view = m.get_view(1, 1)
+        view = m.get_view(p)
         self.assertEqual(len(view), 3)
         self.assertEqual(view,
                          [[CELL.UNKNOWN.value, CELL.WALL.value, CELL.UNKNOWN.value],
@@ -20,11 +25,13 @@ class TestLevel(TestCase):
                           [CELL.UNKNOWN.value, CELL.EMPTY.value, CELL.UNKNOWN.value]])
 
     def test_get_view_2(self):
-        m = TextLevel(2)
-        m.read_file(os.path.join(os.getcwd(), "game", "assets", "text_levels", "1"))
+        m = TextLevel()
+        g = Game()
+        p = Player(g, 2, 3, 4)
+        m.init_map(os.path.join(os.getcwd(), "game", "assets", "text_levels", "1"))
         self.assertEqual(m.height, 6)
         self.assertEqual(m.width, 11)
-        view = m.get_view(3, 4)
+        view = m.get_view(p)
         self.assertEqual(len(view), 5)
         self.assertEqual(view, [
             [CELL.UNKNOWN.value, CELL.UNKNOWN.value, CELL.EMPTY.value, CELL.UNKNOWN.value, CELL.UNKNOWN.value],
@@ -34,7 +41,7 @@ class TestLevel(TestCase):
             [CELL.UNKNOWN.value, CELL.UNKNOWN.value, CELL.UNKNOWN.value, CELL.UNKNOWN.value, CELL.UNKNOWN.value]])
 
     def test_str(self):
-        m = TextLevel(CELL.UNKNOWN.value)
-        m.read_file(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
+        m = TextLevel()
+        m.init_map(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
         self.assertEqual(str(m),
                          "22222222222\n21111111112\n21111111112\n21111111112\n21111111112\n21111111112\n22222222222")

@@ -1,17 +1,38 @@
 from queue import PriorityQueue
 
+import pygame as pg
 
-class Screen:
+from config.constants import CELLSIZE, COLORS
+
+
+class Singleton(type):
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+
+class Screen(metaclass=Singleton):
     game_objects = PriorityQueue()
+    instance = None
 
-    def __init__(self, height, width):
+    def __init__(self, height, width, fps):
+        pg.init()
         self.height = height
         self.width = width
+        self.fps = fps
+        self.instance = self
+        self.screen = pg.display.set_mode((width * CELLSIZE, height * CELLSIZE))
 
     def render(self):
-        for game_object in self.game_objects:
+        self.screen.fill(COLORS.WHITE.value)
+        for game_object in list(self.game_objects.queue):
             game_object.item.render()
+        pg.display.flip()
+        pg.display.update()
 
-    def get_screen(self):
-        # Should return a reference to the screen object (tktinter's for example)
-        return None
+    def quit(self):
+        pg.quit()
+        self.game_objects = PriorityQueue()
