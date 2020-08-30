@@ -12,7 +12,6 @@ class TestLevel(TestCase):
 
     def test_get_view_1(self):
         g = Game()
-        _ = Screen(1, 1, 60)
         m = TextLevel()
         m.init_map(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
         p = Player(g, 1, 1, 1)
@@ -27,9 +26,9 @@ class TestLevel(TestCase):
 
     def test_get_view_2(self):
         m = TextLevel()
-        m.init_map(os.path.join(os.getcwd(), "game", "assets", "text_levels", "1"))
         g = Game()
         p = Player(g, 2, 3, 4)
+        m.init_map(os.path.join(os.getcwd(), "game", "assets", "text_levels", "1"))
         self.assertEqual(m.height, 6)
         self.assertEqual(m.width, 11)
         view = m.get_view(p)
