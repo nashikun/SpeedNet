@@ -16,12 +16,14 @@ class Singleton(type):
 
 class Screen(metaclass=Singleton):
     game_objects = PriorityQueue()
+    instance = None
 
     def __init__(self, height, width, fps):
         pg.init()
         self.height = height
         self.width = width
         self.fps = fps
+        self.instance = self
         self.screen = pg.display.set_mode((width * CELLSIZE, height * CELLSIZE))
 
     def render(self):

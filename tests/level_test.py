@@ -12,7 +12,7 @@ class TestLevel(TestCase):
 
     def test_get_view_1(self):
         g = Game()
-        s = Screen(1, 1, 60)
+        _ = Screen(1, 1, 60)
         m = TextLevel()
         m.init_map(os.path.join(os.getcwd(), "game", "assets", "text_levels", "0"))
         p = Player(g, 1, 1, 1)
